@@ -1,0 +1,17 @@
+basePath: /
+host: localhost:1323
+info:
+  contact: {}
+  description: This is a jpi management application
+  title: JPI app
+  version: "1.0"
+paths:
+  /api:
+    get:
+      description: Get weather description
+      produces:
+      - application/json
+      summary: Get weather
+      tags:
+      - todos
+swagger: "2.0"
