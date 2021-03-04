@@ -9,6 +9,7 @@ import (
 	_ "jpi/docs"
 	"log"
 	"net/http"
+	"os"
 )
 
 var cache = freecache.NewCache(1 * 1024 * 1024)
@@ -19,6 +20,12 @@ var cache = freecache.NewCache(1 * 1024 * 1024)
 // @host localhost:1323
 // @BasePath /
 func main() {
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	}
+
 	e := echo.New()
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
@@ -32,7 +39,7 @@ func main() {
 	})
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
-	e.Logger.Fatal(e.Start(":1323"))
+	e.Logger.Fatal(e.Start(":" + port))
 }
 
 // Get weather
