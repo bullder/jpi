@@ -90,9 +90,7 @@ func GetCitiesAsync(c string) CitiesResult {
 
 func worker(c string, r *CitiesResult, wg *sync.WaitGroup) {
 	defer wg.Done()
-	log.Printf("Worker %s starting\n", c)
 	r.addCity(GetCity(c))
-	log.Printf("Worker %s done\n", c)
 }
 
 func GetCachedResponse(c string) string {
