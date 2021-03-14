@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/coocood/freecache"
-	"log"
+	log "github.com/sirupsen/logrus"
 )
 
 var cache = freecache.NewCache(1 * 1024 * 1024)
