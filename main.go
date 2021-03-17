@@ -53,11 +53,8 @@ func main() {
 
 	e.Static("/", "public")
 
-	//e.GET("/", func(c echo.Context) error {
-	//	return c.String(http.StatusOK, "Hello, Smartbox!")
-	//})
 	e.GET("/api/weather/:id", func(c echo.Context) error {
-		return c.String(http.StatusOK, GetWeather(c.Param("id")))
+		return c.JSON(http.StatusOK, GetWeather(c.Param("id")))
 	})
 
 	e.GET("/api/city/:id", func(c echo.Context) error {
@@ -73,6 +70,10 @@ func main() {
 	})
 
 	e.GET("/ws", ws)
+
+	e.GET("/api/weatherCache/:id", func(c echo.Context) error {
+		return c.String(http.StatusOK, GetWeatherCache(c.Param("id")))
+	})
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 	e.Logger.Fatal(e.Start(":" + port))

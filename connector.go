@@ -21,6 +21,19 @@ import (
 // @Success 201 {object}
 // @Router /api/weather/:id [get]
 func GetWeather(c string) string {
+	body := GetResponse(c)
+
+	return string(body)
+}
+
+// GetWeatherCache
+// @Summary Get weather
+// @Description Get weather description
+// @Tags todos
+// @Produce json
+// @Success 201 {object}
+// @Router /api/weatherCache/:id [get]
+func GetWeatherCache(c string) string {
 	body := GetCachedResponse(c)
 
 	return body
@@ -59,7 +72,7 @@ func GetCities(c string) CitiesResult {
 		cityResult := GetCity(city)
 		r.addCity(cityResult)
 	}
-	r.Duration = time.Since(start).String()
+	r.Duration = time.Since(start).Milliseconds()
 
 	return r
 }
@@ -84,7 +97,7 @@ func GetCitiesAsync(c string) CitiesResult {
 	}
 
 	wg.Wait()
-	r.Duration = time.Since(start).String()
+	r.Duration = time.Since(start).Milliseconds()
 
 	return r
 }

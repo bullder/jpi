@@ -52,7 +52,7 @@ type CityResult struct {
 
 type CitiesResult struct {
 	Cities []CityResult `json:"cities"`
-	Duration string `json:"duration"`
+	Duration int64 `json:"duration"`
 }
 
 func (c City) getResult() CityResult  {
