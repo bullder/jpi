@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	log "github.com/sirupsen/logrus"
+	"golang.org/x/net/websocket"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -91,6 +92,26 @@ func GetCitiesAsync(c string) CitiesResult {
 func worker(c string, r *CitiesResult, wg *sync.WaitGroup) {
 	defer wg.Done()
 	r.addCity(GetCity(c))
+}
+
+func GetCitiesWs(ws *websocket.Conn, c string) {
+	cities := strings.Split(c, ",")
+
+	for _, city := range cities {
+		go workerWs(city, ws)
+	}
+}
+
+func workerWs(c string, ws *websocket.Conn) {
+	msg, err := json.Marshal(GetCity(c))
+	if err != nil {
+		log.Println("error:", err)
+	}
+
+	err = websocket.Message.Send(ws, msg)
+	if err != nil {
+		log.Error(err)
+	}
 }
 
 func GetCachedResponse(c string) string {

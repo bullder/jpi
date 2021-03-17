@@ -9,6 +9,7 @@ import (
 	"github.com/newrelic/go-agent/v3/newrelic"
 	log "github.com/sirupsen/logrus"
 	echoSwagger "github.com/swaggo/echo-swagger"
+	"golang.org/x/net/websocket"
 	_ "jpi/docs"
 	"net/http"
 	"os"
@@ -44,13 +45,17 @@ func main() {
 	}
 	e := echo.New()
 	e.Use(nrecho.Middleware(app))
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
 	}))
 
-	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, Smartbox!")
-	})
+	e.Static("/", "public")
+
+	//e.GET("/", func(c echo.Context) error {
+	//	return c.String(http.StatusOK, "Hello, Smartbox!")
+	//})
 	e.GET("/api/weather/:id", func(c echo.Context) error {
 		return c.String(http.StatusOK, GetWeather(c.Param("id")))
 	})
@@ -67,6 +72,31 @@ func main() {
 		return c.JSON(http.StatusOK, GetCitiesAsync(c.Param("id")))
 	})
 
+	e.GET("/ws", ws)
+
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 	e.Logger.Fatal(e.Start(":" + port))
+}
+
+func ws(c echo.Context) error {
+	websocket.Handler(func(ws *websocket.Conn) {
+		defer ws.Close()
+		for {
+			err := websocket.Message.Send(ws, "Hello!")
+			if err != nil {
+				c.Logger().Error(err)
+			}
+
+			msg := ""
+			err = websocket.Message.Receive(ws, &msg)
+			if err != nil {
+				c.Logger().Error(err)
+			}
+			if msg != "" {
+				GetCitiesWs(ws, msg)
+			}
+			log.Printf("%s\n", msg)
+		}
+	}).ServeHTTP(c.Response(), c.Request())
+	return nil
 }

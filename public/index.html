@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JPI</title>
+    <script type="module" src="index.js"></script>
+</head>
+<body>
+<header>
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     width="20" height="20" fill="none"
+                     stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                     aria-hidden="true" class="me-2" viewBox="0 0 24 24">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                    <circle cx="12" cy="13" r="4"/>
+                </svg>
+                <strong>Album</strong>
+            </a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Weather example</h1>
+                <p class="lead text-muted">Something short and leading about the collection below—its contents,
+                    the creator, etc. Make it short and sweet,
+                    but not too short so folks don’t simply skip over it entirely.</p>
+                <p>
+                    <input type="text" class="form-control" id="search"
+                           placeholder="Dublin,Moscow,Rio,London,Paris"
+                           value="Dublin,Moscow,Rio,London,Paris">
+                    <button id="searchButton" class="btn btn-primary my-2">Search</button>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div id="cities" class="col-sm"></div>
+                <div id="citiesAsync" class="col-sm"></div>
+                <div id="citiesWs" class="col-sm"></div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<footer class="text-muted py-5">
+    <div class="container">
+        <p class="float-end mb-1">
+            <a href="#">Back to top</a>
+        </p>
+        <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+        <p class="mb-0">
+            New to Bootstrap? <a href="/">Visit the homepage</a> or read our
+            <a href="/docs/5.0/getting-started/introduction/">getting started guide</a>.</p>
+    </div>
+</footer>
+
+    <template id="city-col-template">
+        <div class="col">
+            <div class="card shadow-sm"><h2 class="duration"></h2></div>
+        </div>
+    </template>
+
+    <template id="city-template">
+        <div class="card shadow-sm">
+            <img class="bd-placeholder-img card-img-top image" width="100%" height="225"  role="img" />
+
+            <div class="card-body">
+                <p class="card-text">
+                    <span class="name"></span>
+                    <span class="temp"></span>
+                </p>
+            </div>
+        </div>
+    </template>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+          crossorigin="anonymous">
+</body>
+</html>
