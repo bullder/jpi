@@ -9,6 +9,8 @@ FROM alpine:latest
 RUN apk --no-cache add ca-certificates
 COPY --from=builder /main ./
 COPY ./docs ./
+COPY ./public ./
+
 RUN chmod +x ./main
 
 EXPOSE 8080
