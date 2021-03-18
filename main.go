@@ -51,7 +51,7 @@ func main() {
 		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
 	}))
 
-	e.Static("/", "public")
+	e.Static("/", "./public")
 
 	e.GET("/api/weather/:id", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, GetWeather(c.Param("id")))

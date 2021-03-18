@@ -14,6 +14,6 @@ require (
 	github.com/sirupsen/logrus v1.8.1
 	github.com/swaggo/echo-swagger v1.1.0
 	github.com/swaggo/swag v1.7.0
-	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110 // indirect
+	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110
 	golang.org/x/sys v0.0.0-20210303074136-134d130e1a04 // indirect
 )
