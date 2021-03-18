@@ -10,7 +10,7 @@ FROM alpine:latest as app
 RUN apk --no-cache add ca-certificates
 COPY --from=builder /main ./
 COPY ./docs ./
-COPY ./public ./
+COPY ./public ./public
 
 RUN chmod +x ./main
 
